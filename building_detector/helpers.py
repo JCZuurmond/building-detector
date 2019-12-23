@@ -1,4 +1,3 @@
-from collections import namedtuple
 from typing import (
     List,
     Tuple,
@@ -12,7 +11,27 @@ from pyproj import (
 )
 
 
-Point = namedtuple('Point', ['x', 'y'])
+class Point:
+    """
+    A point.
+
+    Attributes
+    ----------
+    x : float
+        The x-coordinate.
+    y : float
+        The y-coordinate.
+    """
+
+    def __init__(self, x: float, y: float):
+        self.x = x
+        self.y = y
+
+    def __repr__(self):
+        return f'Point(x={self.x!r}, y={self.y})'
+
+    def __str__(self):
+        return f'{self.x},{self.y}'
 
 
 class Bbox:
