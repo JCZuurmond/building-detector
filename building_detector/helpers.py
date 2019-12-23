@@ -134,7 +134,7 @@ class Bbox:
 
 def get_layer_bbox(layer: osgeo.ogr.Layer) -> Bbox:
     """
-    Get the layer extent.
+    Get the layer bounding box.
 
     Parameters
     ----------
@@ -148,9 +148,9 @@ def get_layer_bbox(layer: osgeo.ogr.Layer) -> Bbox:
     """
     extents = [feat.GetGeometryRef().GetEnvelope() for feat in layer]
     if not any(extents):
-        return None, None, None, None
+        return None
     xmin, xmax, ymin, ymax = zip(*extents)
-    return min(xmin), max(xmax), min(ymin), max(ymax)
+    return Bbox(min(xmin), max(xmax), min(ymin), max(ymax))
 
 
 def wgs84_to_rd_new(*points: Tuple[Tuple[int, int]]) -> List[Tuple[int, int]]:
