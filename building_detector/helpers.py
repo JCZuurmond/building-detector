@@ -194,3 +194,21 @@ def wgs84_to_rd_new(*points: Tuple[Tuple[int, int]]) -> List[Tuple[int, int]]:
     # coordinate. Though lat is the y coordinate and lon he x coordinate.
     return [transform(wgs84_projection, rd_new_projection, *point[::-1])
             for point in points]
+
+
+def get_gml_layer(path: str) -> osgeo.ogr.Layer:
+    """
+    Get GML layer form file.
+
+    Parameters
+    ----------
+    path : str
+        The path to the gml file.
+
+    Returns
+    -------
+    osgeo.ogr.Layer : The (first) layer in the gml.
+    """
+    driver = ogr.GetDriverByName('GML')
+    gml = driver.Open(path)
+    return gml.GetLayer()
