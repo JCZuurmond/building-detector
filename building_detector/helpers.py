@@ -196,6 +196,27 @@ def wgs84_to_rd_new(*points: Tuple[Tuple[int, int]]) -> List[Tuple[int, int]]:
             for point in points]
 
 
+def rdnew_to_wgs84(*points: Point) -> List[Point]:
+    """
+    Convert RD new (EPSG:28992) to wgs84 (EPSG:4326)
+
+    Parameters
+    ----------
+    *points : Point
+        The points (x, y)
+
+    Returns
+    -------
+    Point: The points converted to the RD new coordinate
+    system.
+    """
+    wgs84_projection = Proj('EPSG:4326')
+    rdnew_projection = Proj('EPSG:28992')
+
+    return [Point(*transform(rdnew_projection, wgs84_projection, *point))
+            for point in points]
+
+
 def get_gml_layer(path: str) -> osgeo.ogr.Layer:
     """
     Get GML layer form file.
