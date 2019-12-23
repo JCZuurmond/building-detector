@@ -1,9 +1,11 @@
+import math
 from typing import (
     List,
     Tuple,
     Union,
 )
 
+import ogr
 import osgeo
 from pyproj import (
     Proj,
