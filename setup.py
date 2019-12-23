@@ -23,14 +23,13 @@ extra_requirements = {
 
 
 setuptools.setup(
-    name='building-detector',
+    name='building_detector',
     author='Cor Zuurmond',
     author_email='jczuurmond@protonmail.com',
     description='Detecting buildings',
     url='https://github.com/JCZuurmond/building-detector',
     license='Open source',
-    packages=setuptools.find_packages('src'),
-    package_dir={'': 'src'},
+    packages=['building_detector'],
     version='0.1.0',
     install_requires=requirements,
     setup_requires=setup_requirements,
