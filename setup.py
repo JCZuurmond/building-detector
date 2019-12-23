@@ -18,7 +18,7 @@ requirements = [
 setup_requirements = []
 test_requirements = ['pytest']
 extra_requirements = {
-    'dev': ['jupyter>=1.0.0', 'matplotlib>=3.1.2'],
+    'dev': ['jupyter>=1.0.0', 'matplotlib>=3.1.2', 'flake8>=3.7.9'],
 }
 
 
