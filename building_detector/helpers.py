@@ -78,16 +78,13 @@ class Bbox:
         if isinstance(key, int):
             if key >= len(self):
                 raise IndexError('Bbox index out of range.')
-            points = (self.lower_left,
-                      self.lower_right,
-                      self.upper_left,
-                      self.upper_right)
+            points = (self.lower_left, self.upper_right)
             return points[key]
         else:
             return getattr(self, key)
 
     def __len__(self):
-        return 4
+        return 2
 
     def __repr__(self):
         return (
