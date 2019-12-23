@@ -1,6 +1,8 @@
+from collections import namedtuple
 from typing import (
     List,
     Tuple,
+    Union,
 )
 
 import osgeo
@@ -147,10 +149,9 @@ def get_layer_bbox(layer: osgeo.ogr.Layer) -> Bbox:
     ymax).
     """
     extents = [feat.GetGeometryRef().GetEnvelope() for feat in layer]
-    if not any(extents):
-        return None
-    xmin, xmax, ymin, ymax = zip(*extents)
-    return Bbox(min(xmin), max(xmax), min(ymin), max(ymax))
+    if any(extents):
+        xmin, xmax, ymin, ymax = zip(*extents)
+        return Bbox(min(xmin), max(xmax), min(ymin), max(ymax))
 
 
 def wgs84_to_rd_new(*points: Tuple[Tuple[int, int]]) -> List[Tuple[int, int]]:
