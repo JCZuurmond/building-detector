@@ -173,7 +173,7 @@ def get_layer_bbox(layer: osgeo.ogr.Layer) -> Bbox:
         return Bbox(min(xmin), max(xmax), min(ymin), max(ymax))
 
 
-def wgs84_to_rd_new(*points: Tuple[Tuple[int, int]]) -> List[Tuple[int, int]]:
+def wgs84_to_rdnew(*points: Tuple[Tuple[int, int]]) -> List[Tuple[int, int]]:
     """
     Convert WGS84 (EPSG:4326) coordinates to RD new (EPSG:28892).
 
@@ -188,11 +188,11 @@ def wgs84_to_rd_new(*points: Tuple[Tuple[int, int]]) -> List[Tuple[int, int]]:
     system.
     """
     wgs84_projection = Proj('EPSG:4326')
-    rd_new_projection = Proj('EPSG:28992')
+    rdnew_projection = Proj('EPSG:28992')
 
     # The transformation expects a (lat, lon) coordinate and returns a (x, y)
     # coordinate. Though lat is the y coordinate and lon he x coordinate.
-    return [transform(wgs84_projection, rd_new_projection, *point[::-1])
+    return [Point(*transform(wgs84_projection, rdnew_projection, *point[::-1]))
             for point in points]
 
 
