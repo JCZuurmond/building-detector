@@ -253,21 +253,3 @@ def wgs84_to_tile_number(lat: float, lon: float, zoom: int) -> Tuple[int]:
     tile_row = (1.0 - math.log(math.tan(lat_rad) + sec) / math.pi) / 2.0 * n
 
     return int(tile_col), int(tile_row)
-
-
-def get_gml_layer(path: str) -> osgeo.ogr.Layer:
-    """
-    Get GML layer form file.
-
-    Parameters
-    ----------
-    path : str
-        The path to the gml file.
-
-    Returns
-    -------
-    osgeo.ogr.Layer : The (first) layer in the gml.
-    """
-    driver = ogr.GetDriverByName('GML')
-    gml = driver.Open(path)
-    return gml.GetLayer()
