@@ -5,13 +5,21 @@
 
 import setuptools
 
+
 with open('README.md') as readme_file:
     readme = readme_file.read()
 
-requirements = []
+
+requirements = [
+    'requests>=2.22.0',
+    'Pillow>=6.1.0',
+]
 setup_requirements = []
 test_requirements = ['pytest']
-extra_requirements = {}
+extra_requirements = {
+    'dev': ['jupyter>=1.0.0', 'matplotlib>=3.1.2'],
+}
+
 
 setuptools.setup(
     name='building-detector',
