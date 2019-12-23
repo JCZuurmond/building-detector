@@ -158,6 +158,10 @@ class Bbox:
         """Upper right coordinate of the bounding box."""
         return Point(self.xmax, self.ymax)
 
+    def rdnew_to_wgs84(self):
+        """Convert this bounding box to WHS84 (EPSG:4326)."""
+        return Bbox.from_points(*rdnew_to_wgs84(*[point for point in self]))
+
 
 def get_layer_bbox(layer: osgeo.ogr.Layer) -> Bbox:
     """
