@@ -174,19 +174,3 @@ def wgs84_to_rd_new(*points: Tuple[Tuple[int, int]]) -> List[Tuple[int, int]]:
     # coordinate. Though lat is the y coordinate and lon he x coordinate.
     return [transform(wgs84_projection, rd_new_projection, *point[::-1])
             for point in points]
-
-
-def get_bbox_width_height(bbox: List[float]) -> Tuple[float]:
-    """
-    Get the width and height of a bounding box (xmin, ymin, xmax, ymax).
-
-    Parameters
-    ----------
-    bbox : List[float]
-        The bounding box (xmin, ymin, xmax, ymax).
-
-    Returns
-    -------
-    Tuple[float] : The width and height of the bounding box.
-    """
-    return bbox[2] - bbox[0], bbox[3] - bbox[1]
