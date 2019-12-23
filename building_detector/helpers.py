@@ -5,7 +5,7 @@ from typing import (
     Union,
 )
 
-import osgeo
+import osgeo.ogr
 from pyproj import (
     Proj,
     transform,
