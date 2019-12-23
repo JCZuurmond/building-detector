@@ -5,7 +5,6 @@ from typing import (
     Union,
 )
 
-import ogr
 import osgeo
 from pyproj import (
     Proj,
@@ -167,7 +166,7 @@ def get_layer_bbox(layer: osgeo.ogr.Layer) -> Bbox:
     Parameters
     ----------
     layer : osgeo.ogr.Layer
-        An osgeo layer.
+        An ogr layer.
 
     Returns
     -------
