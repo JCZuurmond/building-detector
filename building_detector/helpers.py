@@ -33,6 +33,14 @@ class Point:
     def __str__(self):
         return f'{self.x},{self.y}'
 
+    def __getitem__(self, index):
+        if index == 0:
+            return self.x
+        elif index == 1:
+            return self.y
+        else:
+            raise IndexError('point index out of range')
+
 
 class Bbox:
     """
