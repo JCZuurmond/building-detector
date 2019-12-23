@@ -13,6 +13,7 @@ with open('README.md') as readme_file:
 requirements = [
     'requests>=2.22.0',
     'Pillow>=6.1.0',
+    'owslib>=0.19.0',
 ]
 setup_requirements = []
 test_requirements = ['pytest']
