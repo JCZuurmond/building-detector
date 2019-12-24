@@ -100,7 +100,7 @@ def main():
         default=None,
     )
     args = parser.parse_args()
-    download(Path(args.data_dir), args.gml)
+    download(Path(args.data_dir), Path(args.gml))
 
 
 if __name__ == "__main__":
