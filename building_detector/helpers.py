@@ -6,6 +6,7 @@ from typing import (
 )
 
 import osgeo.ogr
+import shapely
 from pyproj import (
     Proj,
     transform,
@@ -121,6 +122,26 @@ class Bbox:
                    ymin=point_min.y,
                    xmax=point_max.x,
                    ymax=point_max.y)
+
+    @classmethod
+    def from_poly(cls, poly: shapely.geometry.polygon.Polygon):
+        """
+        Create a bounding box from a shapely polygon
+
+        Parameters
+        ----------
+        poly : shapely.geometry.polygon.Polygoon
+            A shapely geometry.
+
+        Returns
+        -------
+        Bounding box.
+        """
+        xs, ys = poly.exterior.coords.xy
+        return cls(xmin=min(xs),
+                   ymin=min(ys),
+                   xmax=max(xs),
+                   ymax=max(ys))
 
     @property
     def width(self) -> float:
