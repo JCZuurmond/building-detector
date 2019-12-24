@@ -269,6 +269,31 @@ def wgs84_to_tile_number(lat: float, lon: float, zoom: int) -> Tuple[int]:
     ------
     https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames#Tile_numbers_to_lon..2Flat._2
     """
+    tile_col, tile_row = wgs84_to_tile_coordinate(lat, lon, zoom)
+    return int(tile_col), int(tile_row)
+
+
+def wgs84_to_tile_coordinate(lat: float, lon: float, zoom: int) -> Tuple[int]:
+    """
+    Convert gps coordinate to tile coordinate.
+
+    Parameters
+    ----------
+    lat : float
+        The latitude of the coordinate.
+    lon : float
+        The longitude of the coordinate.
+    zoom : int
+        Zoom level.
+
+    Returns
+    -------
+    Tuple(int, int) : The tile coordinate.
+
+    Source
+    ------
+    https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames#Tile_numbers_to_lon..2Flat._2
+    """
     n = 2.0 ** zoom
     lat_rad = math.radians(lat)
     sec = (1 / math.cos(lat_rad))
@@ -276,4 +301,4 @@ def wgs84_to_tile_number(lat: float, lon: float, zoom: int) -> Tuple[int]:
     tile_col = (lon + 180.0) / 360.0 * n
     tile_row = (1.0 - math.log(math.tan(lat_rad) + sec) / math.pi) / 2.0 * n
 
-    return int(tile_col), int(tile_row)
+    return tile_col, tile_row
