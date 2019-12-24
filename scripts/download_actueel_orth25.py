@@ -1,6 +1,8 @@
 import argparse
+import time
 from pathlib import Path
 
+import requests
 from owslib.wmts import WebMapTileService
 from tqdm import tqdm
 
@@ -43,6 +45,13 @@ def download(data_dir: Path, zoom: int):
 
     wmts = WebMapTileService(wmts_url, version='1.1.1')
     bbox = helpers.Bbox(*wmts.contents[layer_name].boundingBoxWGS84)
+    # TODO: For now only download data around Amsterdam
+    bbox = helpers.Bbox(
+        xmin=100000,
+        ymin=460000,
+        xmax=140000,
+        ymax=500000,
+    ).rdnew_to_wgs84()
     cols, rows = zip(*[
         helpers.wgs84_to_tile_number(*point, zoom)
         for point in bbox
@@ -54,17 +63,26 @@ def download(data_dir: Path, zoom: int):
     )
     for col, row in pbar:
         pbar.set_postfix(row=row, col=col)
-        tile = wmts.gettile(
-            layer=layer_name,
-            tilematrixset='EPSG:3857',
-            tilematrix=f'{zoom:02d}',
-            row=row,
-            column=col,
-            format="image/jpeg"
-        )
-
         tile_file = zoom_dir / f'{col}_{row}.jpg'
-        tile_file.write_bytes(tile.read())
+        if tile_file.exists():
+            continue
+
+        try_ = 0
+        while try_ < 10:
+            try:
+                tile = wmts.gettile(
+                    layer=layer_name,
+                    tilematrixset='EPSG:3857',
+                    tilematrix=f'{zoom:02d}',
+                    row=row,
+                    column=col,
+                    format="image/jpeg"
+                )
+            except requests.exceptions.ReadTimeout:
+                try_ += 1
+                time.sleep(0.1)
+            finally:
+                tile_file.write_bytes(tile.read())
 
 
 def main():
