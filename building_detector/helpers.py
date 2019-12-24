@@ -6,7 +6,7 @@ from typing import (
 )
 
 import osgeo.ogr
-import shapely
+from shapely.geometry.polygon import Polygon
 from pyproj import (
     Proj,
     transform,
@@ -124,7 +124,7 @@ class Bbox:
                    ymax=point_max.y)
 
     @classmethod
-    def from_poly(cls, poly: shapely.geometry.polygon.Polygon):
+    def from_poly(cls, poly: Polygon):
         """
         Create a bounding box from a shapely polygon
 
